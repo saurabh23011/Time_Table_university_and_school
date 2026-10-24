@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+/* Design tokens: a ruled timetable register, coloured session slips, red-pen conflicts. */
+@theme {
+  --color-paper: #f6f7f9;
+  --color-sheet: #ffffff;
+  --color-ink: #1b2340;
+  --color-ink-soft: #4a5370;
+  --color-ink-faint: #7f87a0;
+  --color-rule: #d6dce6;
+  --color-rule-soft: #e8ecf2;
+  --color-register: #0f6e5a;
+  --color-register-dark: #0a5545;
+  --color-register-wash: #e3f2ed;
+  --color-redpen: #c8102e;
+  --color-redpen-wash: #fdecee;
+  --color-marker: #f2cc3d;
+  --color-marker-wash: #fdf6d8;
+
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Source Sans 3", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --radius-slip: 4px;
+  --radius-panel: 8px;
+}
+
+html,
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  letter-spacing: -0.01em;
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-register);
+  outline-offset: 2px;
+}
+
+/* Break / lunch rows: hatched like an unused register line */
+.hatch {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent 0 6px,
+    rgba(27, 35, 64, 0.06) 6px 7px
+  );
+}
+
+/* Red-pen ring around a conflicting slip */
+.redpen-ring {
+  box-shadow: 0 0 0 2px var(--color-redpen);
+  border-radius: 6px;
+}
+
+.drop-ok {
+  background: var(--color-register-wash);
+  outline: 2px dashed var(--color-register);
+  outline-offset: -3px;
+}
+
+.drop-hover {
+  background: #c9e8de;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 10mm;
+  }
+  body {
+    background: white;
+    font-size: 11px;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-full {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    overflow: visible !important;
+  }
+  .slip {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}
